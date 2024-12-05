@@ -1,5 +1,5 @@
 # Use an OpenJDK base image
-FROM adoptopenjdk/openjdk17:alpine
+FROM eclipse-temurin:17-alpine
 
 # Install bash, useful for debugging
 RUN apk add --no-cache bash
