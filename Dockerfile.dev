@@ -1,5 +1,5 @@
 # Use an OpenJDK base image
-FROM adoptopenjdk/openjdk11:alpine
+FROM adoptopenjdk/openjdk17:alpine
 
 # Install bash, useful for debugging
 RUN apk add --no-cache bash
@@ -8,7 +8,7 @@ RUN apk add --no-cache bash
 WORKDIR /app
 
 # Copy the application JAR file from the working directory
-ARG JAR_FILE=target/data-collector-service-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
 # Expose the port where the Spring Boot application will run
