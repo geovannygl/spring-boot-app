@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     @GetMapping("/")
     public String index() {
-        return "Hola polluela hermosa, espero que este teniendo un hermoso día. Te amo <3";
+        return "Hi from Spring Boot Application!";
     }
 }
