@@ -1,0 +1,6 @@
+[
+  {
+    "name": "spring-boot-app",
+    "imageUri": "635462603772.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app"
+  }
+]
