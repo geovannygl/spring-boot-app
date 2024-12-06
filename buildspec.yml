@@ -11,15 +11,16 @@ env:
 phases:
   pre_build:
     commands:
+      - echo "Starting pre-build..."
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
+
       - echo "Logging to Docker Hub..."
       - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
 
-      - echo "Installing dependencies"
+      - echo "Logging to AWS ECR"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL
 
-      - echo "Starting pre-build..."
       - export IMAGE_TAG=latest # Use the latest tag
   build:
     commands:
@@ -28,8 +29,8 @@ phases:
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker tag $ECR_REPOSITORY_NAME:latest ECR_URI:latest
-      - docker push ECR_URI:latest
+      - docker tag $ECR_REPOSITORY_NAME:latest $ECR_URI:latest
+      - docker push $ECR_URI:latest
 artifacts:
   files:
     - target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
