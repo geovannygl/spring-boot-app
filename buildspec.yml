@@ -8,13 +8,13 @@ phases:
 
       - echo "Starting pre-build..."
       # Get the CODEBUILD_SOURCE_VERSION variable branch name
-      - export BRANCH_NAME=$(echo $CODEBUILD_SOURCE_VERSION | sed 's/refs\/heads\///')
+      - export BRANCH_NAME=dev
       - export IMAGE_TAG=latest # Use the latest tag
   build:
     commands:
       - echo "Building Docker image..."
       - |
-        if ["$BRANCH_NAME" == "dev"]; then 
+        if [ "$BRANCH_NAME" == "dev" ]; then 
           docker build -f Dockerfile.dev -t spring-boot-app .
         else 
           docker build -f Dockerfile.prod -t spring-boot-app-prod .
