@@ -1,7 +1,7 @@
 version: 0.2
 
 phases:
-  pre-build:
+  pre_build:
     commands:
       - echo "Installing dependencies"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 635462603772.dkr.ecr.us-east-1.amazonaws.com
@@ -9,7 +9,6 @@ phases:
       - echo "Starting pre-build..."
       # Get the CODEBUILD_SOURCE_VERSION variable branch name
       - export BRANCH_NAME=$(echo $CODEBUILD_SOURCE_VERSION | sed 's/refs\/heads\///')
-      - echo "Branch name: $BRANCH_NAME" # This will print the branch name (dev or main)
       - export IMAGE_TAG=latest # Use the latest tag
   build:
     commands:
@@ -20,7 +19,7 @@ phases:
         else 
           docker build -f Dockerfile.prod -t spring-boot-app-prod .
         fi
-  post-build:
+  post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
       - |
