@@ -4,7 +4,6 @@ phases:
   install:
     runtime-versions:
       java: openjdk17
-      maven: 3.8.6
   pre_build:
     commands:
       # Build the Spring Boot application JAR file using Maven
