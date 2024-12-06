@@ -13,7 +13,7 @@ phases:
     commands:
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
-      - echo "Using docker username: $DOCKER_USERNAME"
+      - echo "Using docker username:" $DOCKER_USERNAME
       - echo "Logging to Docker Hub..."
       - docker login --username "geovannygl" --password "&clickPanda78"
 
