@@ -1,11 +1,19 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    DOCKER_USERNAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:DOCKER_USERNAME"
+    DOCKER_PASSWORD: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:DOCKER_PASSWORD"
+    ECR_URL: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URL"
+    ECR_REPOSITORY_NAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_REPOSITORY_NAME"
+    ECR_URI: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URI"
+
 phases:
   pre_build:
     commands:
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
-
+      - echo "Using docker username: $DOCKER_USERNAME"
       - echo "Logging to Docker Hub..."
       - docker login --username "geovannygl" --password "&clickPanda78"
 
