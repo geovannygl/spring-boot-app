@@ -32,4 +32,7 @@ phases:
         fi
 artifacts:
   files:
+    - target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
     - imagedefinitions.json # Include the imagedefinitions file as artifact
+  discard-paths: yes
+  base-directory: target # Specifies the base path
