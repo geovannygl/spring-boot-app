@@ -1,8 +1,14 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: openjdk17
+      maven: 3.8.6
   pre_build:
     commands:
+      # Build the Spring Boot application JAR file using Maven
+      - mvn clean package -DskipTests
       - echo "Installing dependencies"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 635462603772.dkr.ecr.us-east-1.amazonaws.com
 
