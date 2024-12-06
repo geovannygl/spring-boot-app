@@ -13,26 +13,23 @@ phases:
     commands:
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
-      - echo "Using docker username:" $DOCKER_USERNAME
       - echo "Logging to Docker Hub..."
-      - docker login --username "geovannygl" --password "&clickPanda78"
+      - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
 
       - echo "Installing dependencies"
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 635462603772.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL
 
       - echo "Starting pre-build..."
-      # Get the CODEBUILD_SOURCE_VERSION variable branch name
-      - export BRANCH_NAME=dev
       - export IMAGE_TAG=latest # Use the latest tag
   build:
     commands:
       - echo "Building Docker image..."
-      - docker build -f Dockerfile.dev -t spring-boot-app .
+      - docker build -f Dockerfile.dev -t $ECR_REPOSITORY_NAME .
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker tag spring-boot-app:latest 635462603772.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:latest
-      - docker push 635462603772.dkr.ecr.us-east-1.amazonaws.com/spring-boot-app:latest
+      - docker tag $ECR_REPOSITORY_NAME:latest ECR_URI:latest
+      - docker push ECR_URI:latest
 artifacts:
   files:
     - target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
