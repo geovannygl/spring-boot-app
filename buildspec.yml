@@ -38,7 +38,7 @@ phases:
     commands:
       - echo "Pushing Docker image to ECR..."
       - |
-        if [ "BRANCH_NAME" == "dev" ]; then
+        if [ "$BRANCH_NAME" == "dev" ]; then
           echo "Pushing the image with dev repository"
           docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
           docker push $ECR_URI:$IMAGE_TAG

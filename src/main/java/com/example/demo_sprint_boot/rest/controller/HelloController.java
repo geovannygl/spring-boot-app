@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     @GetMapping("/")
     public String index() {
-        return "Hi from Spring Boot Application!";
+        return "Hi from Spring Boot Application! Now I'm using environment variables";
     }
 }
