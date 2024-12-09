@@ -14,7 +14,7 @@ phases:
     commands:
       - echo "Starting pre-build..."
       # Build the Spring Boot application JAR file using Maven
-      # mvn clean package -DskipTests
+      - mvn clean package -DskipTests
 
       - echo "Logging to Docker Hub..."
       - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
