@@ -27,12 +27,20 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
-      - docker build -f Dockerfile.dev -t $ECR_REPOSITORY_NAME .
+      - |
+        if [ "$BRANCH_NAME" == "dev" ]; then
+          echo "Building with Dockerfile.dev"
+          docker build -f Dockerfile.dev -t $ECR_REPOSITORY_NAME .
+        fi
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
-      - docker push $ECR_URI:$IMAGE_TAG
+      - |
+        if [ "BRANCH_NAME" == "dev" ]; then
+          echo "Pushing the image with dev repository"
+          docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
+          docker push $ECR_URI:$IMAGE_TAG
+        fi
 artifacts:
   files:
     - target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
