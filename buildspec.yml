@@ -7,21 +7,20 @@ env:
     ECR_URL: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URL"
     ECR_REPOSITORY_NAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_REPOSITORY_NAME"
     ECR_URI: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URI"
+    IMAGE_TAG: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:IMAGE_TAG"
 
 phases:
   pre_build:
     commands:
       - echo "Starting pre-build..."
       # Build the Spring Boot application JAR file using Maven
-      - mvn clean package -DskipTests
+      # mvn clean package -DskipTests
 
       - echo "Logging to Docker Hub..."
       - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
 
       - echo "Logging to AWS ECR"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL
-
-      - export IMAGE_TAG=latest # Use the latest tag
   build:
     commands:
       - echo "Building Docker image..."
@@ -29,8 +28,8 @@ phases:
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker tag $ECR_REPOSITORY_NAME:latest $ECR_URI
-      - docker push $ECR_URI
+      - docker tag $ECR_REPOSITORY_NAME:IMAGE_TAG $ECR_URI:IMAGE_TAG
+      - docker push $ECR_URI:IMAGE_TAG
 artifacts:
   files:
     - target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
