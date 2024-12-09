@@ -28,8 +28,8 @@ phases:
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker tag $ECR_REPOSITORY_NAME:IMAGE_TAG $ECR_URI:IMAGE_TAG
-      - docker push $ECR_URI:IMAGE_TAG
+      - docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
+      - docker push $ECR_URI:$IMAGE_TAG
 artifacts:
   files:
     - target/demo-sprint-boot-0.0.1-SNAPSHOT.jar
