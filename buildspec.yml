@@ -14,7 +14,7 @@ env:
 phases:
   pre_build:
     commands:
-      - echo "Current branch:" $BRANCH_NAME
+      - echo "Current branch $BRANCH_NAME"
       - echo "Starting pre-build..."
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
