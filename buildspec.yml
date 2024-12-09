@@ -31,6 +31,8 @@ phases:
         if [ "$BRANCH_NAME" == "dev" ]; then
           echo "Building with Dockerfile.dev"
           docker build -f Dockerfile.dev -t $ECR_REPOSITORY_NAME .
+        else
+          echo "The environment is not dev"
         fi
   post_build:
     commands:
@@ -40,6 +42,8 @@ phases:
           echo "Pushing the image with dev repository"
           docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
           docker push $ECR_URI:$IMAGE_TAG
+        else
+          echo "The environment is not dev"
         fi
 artifacts:
   files:
