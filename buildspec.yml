@@ -2,10 +2,12 @@ version: 0.2
 
 env:
   secrets-manager:
-    ECR_URL: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:ECR_URL"
-    ECR_REPOSITORY_NAME: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:ECR_REPOSITORY_NAME"
-    ECR_URI: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:ECR_URI"
-    IMAGE_TAG: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:IMAGE_TAG"
+    DOCKER_USERNAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:DOCKER_USERNAME"
+    DOCKER_PASSWORD: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:DOCKER_PASSWORD"
+    ECR_URL: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URL"
+    ECR_REPOSITORY_NAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_REPOSITORY_NAME"
+    ECR_URI: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URI"
+    IMAGE_TAG: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:IMAGE_TAG"
   variables:
     BRANCH_NAME: $BRANCH_NAME
 
@@ -16,6 +18,9 @@ phases:
       - echo "Starting pre-build..."
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
+
+      - echo "Logging to Docker Hub..."
+      - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
 
       - echo "Logging to AWS ECR"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL
