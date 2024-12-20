@@ -2,12 +2,10 @@ version: 0.2
 
 env:
   secrets-manager:
-    DOCKER_USERNAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:DOCKER_USERNAME"
-    DOCKER_PASSWORD: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:DOCKER_PASSWORD"
-    ECR_URL: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URL"
-    ECR_REPOSITORY_NAME: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_REPOSITORY_NAME"
-    ECR_URI: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:ECR_URI"
-    IMAGE_TAG: "arn:aws:secretsmanager:us-east-1:635462603772:secret:spring-boot-app-sm-HBn031:IMAGE_TAG"
+    ECR_URL: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:ECR_URL"
+    ECR_REPOSITORY_NAME: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:ECR_REPOSITORY_NAME"
+    ECR_URI: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:ECR_URI"
+    IMAGE_TAG: "arn:aws:secretsmanager:us-east-2:579193032838:secret:test-demo-xgGHri:IMAGE_TAG"
   variables:
     BRANCH_NAME: $BRANCH_NAME
 
