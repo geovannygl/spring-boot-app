@@ -17,9 +17,6 @@ phases:
       # Build the Spring Boot application JAR file using Maven
       - mvn clean package -DskipTests
 
-      - echo "Logging to Docker Hub..."
-      - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
-
       - echo "Logging to AWS ECR"
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL
   build:
